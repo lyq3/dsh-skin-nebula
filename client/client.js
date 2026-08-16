@@ -28,16 +28,28 @@ window.__ModuleLoader__.load({ id: "dsh-skin-nebula", factory: (require) => {
 			images: { dark: "ninja-dark.png", light: "ninja-light.png" },
 		},
 		{
-			id: "nebula",
-			darkAccent: "167, 139, 250", darkAccentSoft: "196, 181, 253",
-			lightAccent: "124, 58, 237", lightAccentDeep: "109, 40, 217",
-			images: { dark: "nebula-dark.png", light: "nebula-light.png" },
-		},
-		{
 			id: "sakura",
 			darkAccent: "251, 113, 133", darkAccentSoft: "253, 164, 175",
 			lightAccent: "225, 29, 72", lightAccentDeep: "190, 18, 60",
 			images: { dark: "sakura-dark.png", light: "sakura-light.png" },
+		},
+		{
+			id: "bamboo",
+			darkAccent: "74, 222, 128", darkAccentSoft: "134, 239, 172",
+			lightAccent: "22, 163, 74", lightAccentDeep: "21, 128, 61",
+			images: { dark: "bamboo-dark.png", light: "bamboo-light.png" },
+		},
+		{
+			id: "ronin",
+			darkAccent: "251, 146, 60", darkAccentSoft: "253, 186, 116",
+			lightAccent: "234, 88, 12", lightAccentDeep: "194, 65, 12",
+			images: { dark: "ronin-dark.png", light: "ronin-light.png" },
+		},
+		{
+			id: "ryujin",
+			darkAccent: "129, 140, 248", darkAccentSoft: "165, 180, 252",
+			lightAccent: "79, 70, 229", lightAccentDeep: "67, 56, 202",
+			images: { dark: "ryujin-dark.png", light: "ryujin-light.png" },
 		},
 	];
 
@@ -194,8 +206,8 @@ window.__ModuleLoader__.load({ id: "dsh-skin-nebula", factory: (require) => {
 	// works in compositions without it (labels then fall back to English).
 	const NS = "dsh-skin-nebula";
 	const DICTS = {
-		zh: { tooltip: "切换皮肤", opacity: "透明度", "skin.ninja": "忍者", "skin.nebula": "星云", "skin.sakura": "樱花" },
-		en: { tooltip: "Switch skin", opacity: "Transparency", "skin.ninja": "Ninja", "skin.nebula": "Nebula", "skin.sakura": "Sakura" },
+		zh: { tooltip: "切换皮肤", opacity: "透明度", "skin.ninja": "忍者", "skin.sakura": "樱花", "skin.bamboo": "竹林", "skin.ronin": "落日", "skin.ryujin": "苍龙" },
+		en: { tooltip: "Switch skin", opacity: "Transparency", "skin.ninja": "Ninja", "skin.sakura": "Sakura", "skin.bamboo": "Bamboo", "skin.ronin": "Ronin", "skin.ryujin": "Ryujin" },
 	};
 
 // The de-facto "skin/outfit" glyph: a t-shirt outline.

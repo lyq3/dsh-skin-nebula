@@ -1,2 +1,2 @@
-assets/_codex_*.txt
+assets/*.txt
 node_modules/
