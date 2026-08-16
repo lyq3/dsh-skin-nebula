@@ -12,7 +12,7 @@ DeepSeek Harness Web UI 动漫皮肤包——半透明表面 + AI 生成高清�
 | Nebula 星云 | electric violet 电紫 | deep-space nebula | aurora mist |
 | Sakura 樱花 | rose 绯红 | kunoichi on a torii gate under a blood moon | sakura kunoichi in a pastel sky |
 
-The choice persists in `localStorage` per browser. Both color schemes (light/dark) are covered by every skin; the backdrop follows `body[data-ds-dark-theme]` automatically.
+The dropdown also has a transparency slider (0-100%, default 50%): higher = more artwork showing through; menus and popovers keep a readability floor. Skin choice and transparency persist in `localStorage` per browser. Both color schemes (light/dark) are covered by every skin; the backdrop follows `body[data-ds-dark-theme]` automatically.
 
 ## Install · 安装
 
