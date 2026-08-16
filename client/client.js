@@ -35,13 +35,13 @@ window.__ModuleLoader__.load({ id: "dsh-skin-nebula", factory: (require) => {
 	// presenter owns body[data-ds-dark-theme], which doubles as the scheme switch.
 	const CSS = [
 		"body {",
-		"  background-image: linear-gradient(rgba(247, 250, 255, 0.10), rgba(247, 250, 255, 0.30)), url('/skin-nebula/nebula-light.png');",
+		"  background-image: linear-gradient(rgba(247, 250, 255, 0.10), rgba(247, 250, 255, 0.30)), url('/skin-nebula/ninja-light.png');",
 		"  background-size: cover;",
 		"  background-position: center;",
 		"  background-attachment: fixed;",
 		"}",
 		"body[data-ds-dark-theme] {",
-		"  background-image: linear-gradient(rgba(4, 6, 14, 0.10), rgba(4, 6, 14, 0.40)), url('/skin-nebula/nebula-dark.png');",
+		"  background-image: linear-gradient(rgba(4, 6, 14, 0.10), rgba(4, 6, 14, 0.40)), url('/skin-nebula/ninja-dark.png');",
 		"}",
 	].join("\n");
 
