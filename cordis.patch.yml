@@ -1,0 +1,4 @@
+# dsh bundle patch: inserts the Nebula skin host plugin into a profile's layer stack.
+- insert:
+    - id: dsh-skin-nebula
+      name: 'dsh-skin-nebula'
