@@ -16,6 +16,16 @@
 
 菜单里还有透明度滑杆（0-100%，默认 50%）：越高背景越透出；菜单弹层保有可读性下限。皮肤选择与透明度都按浏览器存于 `localStorage`。每套皮肤覆盖明暗两种配色方案，背景跟随 `body[data-ds-dark-theme]` 自动切换。
 
+## 预览
+
+| | 暗色 | 亮色 |
+| --- | --- | --- |
+| **忍者** | <img src="assets/ninja-dark.png" width="400"> | <img src="assets/ninja-light.png" width="400"> |
+| **樱花** | <img src="assets/sakura-dark.png" width="400"> | <img src="assets/sakura-light.png" width="400"> |
+| **竹林** | <img src="assets/bamboo-dark.png" width="400"> | <img src="assets/bamboo-light.png" width="400"> |
+| **落日** | <img src="assets/ronin-dark.png" width="400"> | <img src="assets/ronin-light.png" width="400"> |
+| **苍龙** | <img src="assets/ryujin-dark.png" width="400"> | <img src="assets/ryujin-light.png" width="400"> |
+
 ## 安装
 
 ```sh

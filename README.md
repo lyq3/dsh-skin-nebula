@@ -16,6 +16,16 @@ Anime skin pack for the [DeepSeek Harness](https://github.com/deepseek-ai/deepse
 
 The dropdown also has a transparency slider (0-100%, default 50%): higher = more artwork showing through; menus and popovers keep a readability floor. Skin choice and transparency persist in `localStorage` per browser. Both color schemes (light/dark) are covered by every skin; the backdrop follows `body[data-ds-dark-theme]` automatically.
 
+## Preview
+
+| | Dark | Light |
+| --- | --- | --- |
+| **Ninja** | <img src="assets/ninja-dark.png" width="400"> | <img src="assets/ninja-light.png" width="400"> |
+| **Sakura** | <img src="assets/sakura-dark.png" width="400"> | <img src="assets/sakura-light.png" width="400"> |
+| **Bamboo** | <img src="assets/bamboo-dark.png" width="400"> | <img src="assets/bamboo-light.png" width="400"> |
+| **Ronin** | <img src="assets/ronin-dark.png" width="400"> | <img src="assets/ronin-light.png" width="400"> |
+| **Ryujin** | <img src="assets/ryujin-dark.png" width="400"> | <img src="assets/ryujin-light.png" width="400"> |
+
 ## Install
 
 ```sh
