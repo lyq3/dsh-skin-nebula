@@ -1,35 +1,45 @@
 # dsh-skin-nebula
 
-深空霓虹皮肤 for [DeepSeek Harness](https://github.com/deepseek-ai/deepseek-harness) Web UI。
+Anime skin pack for the [DeepSeek Harness](https://github.com/deepseek-ai/deepseek-harness) Web UI — translucent surfaces over AI-generated HD artwork, with a shirt-icon switcher at the top right to cycle between three built-in skins.
 
-深色半透明表面 + 随皮肤变化的点缀色，内置三套 AI 生成的动漫风高清背景，侧边栏底部有调色盘按钮一键循环切换（选择存 localStorage）：
+DeepSeek Harness Web UI 动漫皮肤包——半透明表面 + AI 生成高清背景，右上角"衣服"按钮弹出菜单一键换肤。
 
-- **忍者**（霓虹青）：月下持刀忍者 + 赛博城市夜景 / 晴空白衣忍者
-- **星云**（电紫）：深空星云 / 极光薄雾
-- **樱花**（绯红）：鸟居红刃女忍 + 血月灯笼村 / 樱花晴空女忍
+## Skins · 内置皮肤
 
-表面层半透明让背景透出来；弹层与菜单保持近不透明以保证可读性。
+| Skin | Accent | Dark artwork | Light artwork |
+| --- | --- | --- | --- |
+| Ninja 忍者 | neon cyan 霓虹青 | moonlit ninja over a cyberpunk skyline | white-clad ninja in a bright sky |
+| Nebula 星云 | electric violet 电紫 | deep-space nebula | aurora mist |
+| Sakura 樱花 | rose 绯红 | kunoichi on a torii gate under a blood moon | sakura kunoichi in a pastel sky |
 
-## 结构
+The choice persists in `localStorage` per browser. Both color schemes (light/dark) are covered by every skin; the backdrop follows `body[data-ds-dark-theme]` automatically.
 
-- `index.mjs` — host 侧插件：在 dsh webserver 上注册 `/skin-nebula/` 前缀路由，伺服 `assets/` 里的高清背景图。
-- `client/client.js` — 浏览器侧插件（`__ModuleLoader__` bundle）：
-  - 通过 `ctx.theme.overrideTokens()` 叠加 `--dsw-alias-*` 语义层 + `--dsw-static-neutral-bluish-*` 表面刻度覆盖（全部 light/dark 双值；重复调用同 source 即整层替换，皮肤切换零残留）；
-  - 注入 body 背景图样式表，跟随 `body[data-ds-dark-theme]` 自动切换明暗背景；
-  - 在 `sidebar.footer.action` slot 注册调色盘切换按钮。
-- `assets/` — codex（gpt-image-2）生成的 1536×1024 高清背景，每套皮肤 dark/light 各一张（ninja / nebula / sakura 共 6 张）。
-- `cordis.patch.yml` — 把 host 插件插进 profile 的 bundle 层。
-
-## 安装
+## Install · 安装
 
 ```sh
 dsh plugin --profile web add file:/path/to/dsh-skin-nebula
 ```
 
-然后在 `~/.dsh/profiles/web/package.json` 的 `dsh.profile.bundles` 数组末尾加入 `"dsh-skin-nebula"`，重启 dsh 生效。
+Ensure `dsh-skin-nebula` is listed in the profile's `dsh.profile.bundles` (the `dsh plugin add` command does this automatically), then restart dsh.
 
-卸载：从 `bundles` 数组移除并 `dsh plugin --profile web remove dsh-skin-nebula`。
+安装后确认 `~/.dsh/profiles/web/package.json` 的 `dsh.profile.bundles` 数组包含 `dsh-skin-nebula`（`dsh plugin add` 会自动写入），重启 dsh 生效。
 
-## 兼容性
+Uninstall · 卸载：`dsh plugin --profile web remove dsh-skin-nebula`，并从 `bundles` 移除。
 
-针对 `@deepseek-ai/dsh` 0.1.0-rc.6（Developer Preview）开发；rc 版本存在 breaking change 风险，升级 dsh 后如皮肤失效，优先核对 `dsh.client` 声明与 `--dsw-alias-*` token 清单是否变化。
+## How it works · 实现结构
+
+- `index.mjs` — host plugin: registers the `/skin-nebula` prefix route on the dsh webserver to serve artwork from `assets/` (prefix routes must be registered **without** a trailing slash).
+- `client/client.js` — browser plugin (`__ModuleLoader__` bundle, hand-written, no bundler):
+  - one `ctx.theme.overrideTokens()` layer per active skin, covering the `--dsw-alias-*` semantic tokens **and** the `--dsw-static-neutral-bluish-*` surface scale (the sidebar and some panels read statics directly and would otherwise stay stock gray); every value is a `{ light, dark }` pair so neither scheme bleeds into the other, and re-calling with the same source swaps the whole layer atomically on skin switch;
+  - a body-level backdrop stylesheet (no product DOM selectors);
+  - the switcher registered in the `shell.overlay` slot, with zh/en dictionaries through the optional `locale` service.
+- `assets/` — six 1536×1024 artworks (dark + light per skin) generated with gpt-image-2.
+- `cordis.patch.yml` — inserts the host plugin into the profile's bundle layer.
+
+## Compatibility · 兼容性
+
+Built against `@deepseek-ai/dsh` 0.1.0-rc.6 (Developer Preview). rc releases may break the `dsh.client` contract or the token inventory; if the skin stops applying after a dsh upgrade, re-check the alias/static token names against `dsh-client-ui-theme`'s style sheets first.
+
+## License
+
+MIT
