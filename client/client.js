@@ -16,19 +16,19 @@ window.__ModuleLoader__.load({ id: "dsh-skin-nebula", factory: (require) => {
 	// skin ships a dark and a light artwork under /skin-nebula/.
 	const SKINS = [
 		{
-			id: "ninja", label: "忍者",
+			id: "ninja",
 			darkAccent: "34, 211, 238", darkAccentSoft: "103, 232, 249",
 			lightAccent: "8, 145, 178", lightAccentDeep: "14, 116, 144",
 			images: { dark: "ninja-dark.png", light: "ninja-light.png" },
 		},
 		{
-			id: "nebula", label: "星云",
+			id: "nebula",
 			darkAccent: "167, 139, 250", darkAccentSoft: "196, 181, 253",
 			lightAccent: "124, 58, 237", lightAccentDeep: "109, 40, 217",
 			images: { dark: "nebula-dark.png", light: "nebula-light.png" },
 		},
 		{
-			id: "sakura", label: "樱花",
+			id: "sakura",
 			darkAccent: "251, 113, 133", darkAccentSoft: "253, 164, 175",
 			lightAccent: "225, 29, 72", lightAccentDeep: "190, 18, 60",
 			images: { dark: "sakura-dark.png", light: "sakura-light.png" },
@@ -129,30 +129,56 @@ window.__ModuleLoader__.load({ id: "dsh-skin-nebula", factory: (require) => {
 		].join("\n");
 	}
 
-	// Switcher button styling, static across skins (colors ride on theme vars).
+	// Switcher UI styling, static across skins (colors ride on theme vars).
 	const BUTTON_CSS = [
-		".dshSkinNebulaBtn {",
-		"  display: flex; align-items: center; justify-content: center; gap: 6px;",
-		"  height: 28px; min-width: 28px; padding: 0 6px;",
-		"  border: none; border-radius: 8px; background: transparent;",
-		"  color: var(--dsw-alias-label-secondary); cursor: pointer;",
-		"  font: inherit; font-size: 12px; line-height: 28px; white-space: nowrap;",
+		".dshSkinSwitcher { position: absolute; top: 44px; right: 16px; display: flex; flex-direction: column; align-items: flex-end; }",
+		".dshSkinSwitcherBtn {",
+		"  display: flex; align-items: center; justify-content: center;",
+		"  width: 32px; height: 32px; border-radius: 10px; cursor: pointer;",
+		"  background: var(--dsw-alias-button-floating-fill);",
+		"  border: 1px solid var(--dsw-alias-border-l2);",
+		"  color: var(--dsw-alias-label-secondary);",
+		"  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.18);",
 		"}",
-		".dshSkinNebulaBtn:hover {",
-		"  background: var(--dsw-alias-interactive-bg-hover);",
+		".dshSkinSwitcherBtn:hover {",
+		"  background: var(--dsw-alias-button-floating-hover);",
 		"  color: var(--dsw-alias-brand-text);",
+		"  border-color: var(--dsw-alias-border-l3);",
 		"}",
+		".dshSkinSwitcherMenu {",
+		"  margin-top: 6px; min-width: 148px; padding: 4px;",
+		"  background: var(--dsw-alias-bg-overlay);",
+		"  border: 1px solid var(--dsw-alias-border-l2); border-radius: 10px;",
+		"  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.28);",
+		"}",
+		".dshSkinSwitcherItem {",
+		"  display: flex; align-items: center; gap: 8px; width: 100%;",
+		"  padding: 6px 10px; border: none; border-radius: 7px; cursor: pointer;",
+		"  background: transparent; color: var(--dsw-alias-label-primary);",
+		"  font: inherit; font-size: 13px; text-align: left;",
+		"}",
+		".dshSkinSwitcherItem:hover { background: var(--dsw-alias-interactive-bg-hover); }",
+		".dshSkinSwitcherItem[data-active] { color: var(--dsw-alias-brand-text); }",
+		".dshSkinSwitcherDot { width: 8px; height: 8px; border-radius: 50%; flex: none; }",
+		".dshSkinSwitcherCheck { margin-left: auto; }",
+		".dshSkinSwitcherBackdrop { position: fixed; inset: 0; }",
 	].join("\n");
 
-	function PaletteIcon() {
-		return React.createElement("svg", { width: 16, height: 16, viewBox: "0 0 16 16", fill: "none", "aria-hidden": true },
+	// Locale dictionaries; the locale service is optional so the plugin still
+	// works in compositions without it (labels then fall back to English).
+	const NS = "dsh-skin-nebula";
+	const DICTS = {
+		zh: { tooltip: "切换皮肤", "skin.ninja": "忍者", "skin.nebula": "星云", "skin.sakura": "樱花" },
+		en: { tooltip: "Switch skin", "skin.ninja": "Ninja", "skin.nebula": "Nebula", "skin.sakura": "Sakura" },
+	};
+
+// The de-facto "skin/outfit" glyph: a t-shirt outline.
+	function ShirtIcon() {
+		return React.createElement("svg", { width: 18, height: 18, viewBox: "0 0 24 24", fill: "none", "aria-hidden": true },
 			React.createElement("path", {
-				d: "M8 1.5a6.5 6.5 0 1 0 0 13c.9 0 1.3-.6 1.3-1.2 0-.5-.2-.8-.5-1.1-.3-.3-.5-.6-.5-1 0-.7.6-1.2 1.4-1.2h1.5c1.8 0 3.3-1.3 3.3-3.1C14.5 4 11.6 1.5 8 1.5Z",
-				stroke: "currentColor", "stroke-width": 1.3,
+				d: "M16.2 4 20 6.5c.4.3.6.8.4 1.3l-1.2 3c-.2.5-.8.8-1.3.6l-1.4-.5v8.1c0 .6-.4 1-1 1H8.5c-.6 0-1-.4-1-1v-8.1l-1.4.5c-.5.2-1.1-.1-1.3-.6l-1.2-3c-.2-.5 0-1 .4-1.3L7.8 4h2.4c.1 1 .8 1.7 1.8 1.7S13.7 5 13.8 4h2.4Z",
+				stroke: "currentColor", "stroke-width": 1.5, "stroke-linejoin": "round",
 			}),
-			React.createElement("circle", { cx: 5.2, cy: 6.2, r: 1, fill: "currentColor" }),
-			React.createElement("circle", { cx: 8, cy: 4.6, r: 1, fill: "currentColor" }),
-			React.createElement("circle", { cx: 10.8, cy: 6.2, r: 1, fill: "currentColor" }),
 		);
 	}
 
@@ -190,29 +216,52 @@ window.__ModuleLoader__.load({ id: "dsh-skin-nebula", factory: (require) => {
 			};
 		}, "dsh-skin-nebula: skin layer");
 
-		function SkinButton(props) {
+		// Optional locale service: registered when present, English fallback when not.
+		let t = (key) => DICTS.en[key] ?? key;
+		const locale = ctx.get("locale");
+		if (locale !== undefined) {
+			ctx.effect(() => locale.register(NS, DICTS), "dsh-skin-nebula: dictionaries");
+			t = locale.bind(NS);
+		}
+
+		function SkinSwitcher() {
 			const forceRender = React.useReducer((x) => x + 1, 0)[1];
+			const [open, setOpen] = React.useState(false);
 			React.useEffect(() => {
 				listeners.add(forceRender);
 				return () => listeners.delete(forceRender);
 			}, []);
-			const next = SKINS[(SKINS.indexOf(current) + 1) % SKINS.length];
-			return React.createElement("button", {
-				className: "dshSkinNebulaBtn",
-				title: `切换皮肤：${current.label} → ${next.label}`,
+			const items = SKINS.map((skin) => React.createElement("button", {
+				key: skin.id,
+				className: "dshSkinSwitcherItem",
+				"data-active": skin === current ? "" : undefined,
 				onClick: () => {
-					localStorage.setItem(STORAGE_KEY, next.id);
-					applySkin(next);
+					localStorage.setItem(STORAGE_KEY, skin.id);
+					applySkin(skin);
+					setOpen(false);
 				},
 			},
-				React.createElement(PaletteIcon),
-				props.wide ? React.createElement("span", null, current.label) : null,
+				React.createElement("span", { className: "dshSkinSwitcherDot", style: { background: `rgb(${skin.darkAccent})` } }),
+				t(`skin.${skin.id}`),
+				skin === current ? React.createElement("span", { className: "dshSkinSwitcherCheck" }, "✓") : null,
+			));
+			return React.createElement(React.Fragment, null,
+				open ? React.createElement("div", { className: "dshSkinSwitcherBackdrop", onClick: () => setOpen(false) }) : null,
+				React.createElement("div", { className: "dshSkinSwitcher" },
+					React.createElement("button", {
+						className: "dshSkinSwitcherBtn",
+						title: t("tooltip"),
+						"aria-label": t("tooltip"),
+						onClick: () => setOpen((v) => !v),
+					}, React.createElement(ShirtIcon)),
+					open ? React.createElement("div", { className: "dshSkinSwitcherMenu" }, items) : null,
+				),
 			);
 		}
 
-		ctx.slots.inject("sidebar.footer.action", () => ctx.slots.register(
-			{ name: "sidebar.footer.action", id: "skin-switcher" },
-			(props) => React.createElement(SkinButton, { wide: props.wide }),
+		ctx.slots.inject("shell.overlay", () => ctx.slots.register(
+			{ name: "shell.overlay", id: "dsh-skin-switcher", label: () => "dsh-skin-nebula" },
+			SkinSwitcher,
 		));
 	}
 

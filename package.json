@@ -1,6 +1,6 @@
 {
   "name": "dsh-skin-nebula",
-  "version": "0.3.0",
+  "version": "0.4.0",
   "description": "Nebula skin for DeepSeek Harness Web UI — deep-space neon theme with HD generated backgrounds. · DSH 深空霓虹皮肤，自带高清星云背景。",
   "type": "module",
   "main": "index.mjs",
@@ -24,7 +24,8 @@
     "client",
     "assets",
     "cordis.patch.yml",
-    "README.md"
+    "README.md",
+    "LICENSE"
   ],
   "dsh": {
     "bundle": {
@@ -36,5 +37,9 @@
         "@deepseek-ai/dsh-client-ui-theme"
       ]
     }
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/lyq3/dsh-skin-nebula.git"
   }
 }
