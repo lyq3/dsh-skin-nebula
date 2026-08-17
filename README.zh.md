@@ -28,11 +28,21 @@
 
 ## 安装
 
+从 GitHub 安装（推荐）：
+
+```sh
+dsh plugin --profile web add github:lyq3/dsh-skin-nebula
+```
+
+从本地目录安装：
+
 ```sh
 dsh plugin --profile web add file:/path/to/dsh-skin-nebula
 ```
 
 安装后确认 `~/.dsh/profiles/web/package.json` 的 `dsh.profile.bundles` 数组包含 `dsh-skin-nebula`（`dsh plugin add` 会自动写入），重启 dsh 生效。
+
+升级：重新执行同一条 `add` 命令（`github:` 安装方式会拉取最新 `main`），然后重启 dsh。
 
 卸载：`dsh plugin --profile web remove dsh-skin-nebula`，并从 `bundles` 移除。
 
@@ -48,7 +58,7 @@ dsh plugin --profile web add file:/path/to/dsh-skin-nebula
 
 ## 兼容性
 
-基于 `@deepseek-ai/dsh` 0.1.0-rc.6（Developer Preview）开发。rc 版本可能变更 `dsh.client` 契约或 token 清单；升级 dsh 后若皮肤失效，先对照 `dsh-client-ui-theme` 的样式表核对 alias/static token 名。
+基于 `@deepseek-ai/dsh` 0.1.0-rc.6（Developer Preview）开发，并已在 0.1.0-rc.7 上复核——两版的 `--dsw-alias-*` 与 `--dsw-static-neutral-bluish-*` token 清单一致。后续 rc 版本仍可能变更 `dsh.client` 契约或 token 清单；升级 dsh 后若皮肤失效，先对照 `dsh-client-ui-theme` 的样式表核对 alias/static token 名。
 
 ## 许可
 

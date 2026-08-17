@@ -28,11 +28,21 @@ The dropdown also has a transparency slider (0-100%, default 50%): higher = more
 
 ## Install
 
+From GitHub (recommended):
+
+```sh
+dsh plugin --profile web add github:lyq3/dsh-skin-nebula
+```
+
+From a local checkout:
+
 ```sh
 dsh plugin --profile web add file:/path/to/dsh-skin-nebula
 ```
 
 Ensure `dsh-skin-nebula` is listed in the profile's `dsh.profile.bundles` (the `dsh plugin add` command does this automatically), then restart dsh.
+
+Upgrade: re-run the same `add` command (for `github:` installs, `add github:lyq3/dsh-skin-nebula` pulls the latest `main`), then restart dsh.
 
 Uninstall: `dsh plugin --profile web remove dsh-skin-nebula` and drop the entry from `bundles`.
 
@@ -48,7 +58,7 @@ Uninstall: `dsh plugin --profile web remove dsh-skin-nebula` and drop the entry 
 
 ## Compatibility
 
-Built against `@deepseek-ai/dsh` 0.1.0-rc.6 (Developer Preview). rc releases may break the `dsh.client` contract or the token inventory; if the skin stops applying after a dsh upgrade, re-check the alias/static token names against `dsh-client-ui-theme`'s style sheets first.
+Built against `@deepseek-ai/dsh` 0.1.0-rc.6 (Developer Preview) and re-verified on 0.1.0-rc.7 — the `--dsw-alias-*` and `--dsw-static-neutral-bluish-*` token inventories are unchanged between the two. rc releases may still break the `dsh.client` contract or the token inventory; if the skin stops applying after a dsh upgrade, re-check the alias/static token names against `dsh-client-ui-theme`'s style sheets first.
 
 ## License
 
